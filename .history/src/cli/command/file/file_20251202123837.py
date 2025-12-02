@@ -101,6 +101,46 @@ if __name__ == "__main__":
     result = file_menu.main()
     print(f"\n您选择了: {result}")
     
+<<<<<<< Updated upstream
+    # 根据选择结果动态导入对应模块（文件名与类名相同）
+    if result == "New Repository":
+        try:
+            from new_repository import NewRepository  # 修复：模块名小写
+            # 实例化并调用主方法
+            NewRepository().run_interactive_flow()
+        except ImportError:
+            print("NewRepository 模块未找到，无法创建新仓库。")
+        except AttributeError as e:
+            print(f"NewRepository 类中未找到所需方法: {e}")
+            
+    elif result == "Add local Repository":
+        try:
+            from add_local_repository import AddLocalRepository  # 修复：模块名小写
+            # 实例化并调用主方法
+            AddLocalRepository().local_path()
+        except ImportError:
+            print("AddLocalRepository 模块未找到，无法添加本地仓库。")
+        except AttributeError as e:
+            print(f"AddLocalRepository 类中未找到所需方法: {e}")
+            
+    elif result == "Clone repository":
+        try:
+            from clone_repository import CloneRepository  # 修复：模块名小写
+            CloneRepository().clone_flow()
+        except ImportError:
+            print("CloneRepository 模块未找到，无法克隆仓库。")
+        except AttributeError as e:
+            print(f"CloneRepository 类中未找到所需方法: {e}")
+            
+    elif result == "Options":
+        try:
+            from options import Options  # 修复：模块名小写
+            Options().show_settings()
+        except ImportError:
+            print("Options 模块未找到，无法打开设置。")
+        except AttributeError as e:
+            print(f"Options 类中未找到所需方法: {e}")
+=======
     # 根据选择结果动态导入对应模块（使用正确的相对导入）
     # if result == "New Repository":
     #     try:
@@ -158,3 +198,4 @@ if __name__ == "__main__":
         print(f"new_repository 模块未找到，无法创建新仓库: {e}")
 
         """测试代码"""
+>>>>>>> Stashed changes
