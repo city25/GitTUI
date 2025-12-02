@@ -99,23 +99,13 @@ class File:
 if __name__ == "__main__":
     file_menu = File()
     result = file_menu.main()
-    print(f"\n您选择了: {result}") # 测试代码
+    print(f"\n您选择了: {result}")
+    
+    try:
+        import file_module.new_repository
+        open = file_module.new_repository.run_interactive_flow()
+        print(open)
+    except ImportError as e:
+        print(f"new_repository 模块未找到，无法创建新仓库: {e}")
 
-    # 根据用户选择进行分支处理；未实现的分支使用 pass 占位
-    if result == "New Repository":
-        try:
-            import file_module.new_repository
-            output = file_module.new_repository.run_interactive_flow()
-            print(output)
-        except ImportError as e:
-            print(f"new_repository 模块未找到，无法创建新仓库: {e}")
-    elif result == "Add local Repository":
-        pass
-    elif result == "Clone repository":
-        pass
-    elif result == "Options":
-        pass
-    elif result == "Exit":
-        pass
-    else:
-        pass
+        """测试代码"""
