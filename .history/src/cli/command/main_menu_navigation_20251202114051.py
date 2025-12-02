@@ -143,6 +143,52 @@ def setup_project_path():
 
 
 # # 独立运行测试入口
+# if __name__ == "__main__":
+#     navigation = MainMenuNavigation()
+#     result = navigation.main()
+    
+#     print(f"\n您选择了: {result}")
+
+#     # 尝试动态导入相应模块
+#     try:
+#         # 将菜单项名称转换为可能的模块名
+#         module_name = result.split()[0] if ' ' in result else result
+#         imported_module = importlib.import_module(module_name)
+#         print(f"成功导入 {module_name} 模块")
+#         # 正确导入并调用
+#         from file.file import File
+#         file = File()
+#         file.main()
+#     except ImportError as e:
+#         print(f"警告: 未找到 {module_name} 模块: {e}")
+
+# 独立运行测试入口
+# if __name__ == "__main__":
+#     setup_project_path()  # 设置项目路径
+#     navigation = MainMenuNavigation()
+#     result = navigation.main()
+    
+#     print(f"\n您选择了: {result}")
+
+#     # 尝试动态导入相应模块
+#     try:
+#         # 将菜单项名称转换为可能的模块名
+#         module_name = result.split()[0] if ' ' in result else result
+#         if module_name == "File":
+#             # 使用相对导入路径
+#             from .file.file import File
+#             print(f"成功导入 File 模块")
+#             # 正确导入并调用
+#             file = File()
+#             file.main()
+#         else:
+#             imported_module = importlib.import_module(module_name)
+#             print(f"成功导入 {module_name} 模块")
+#     except ImportError as e:
+#         print(f"警告: 未找到 {module_name} 模块: {e}")
+#     except Exception as e:
+#         print(f"执行 {module_name} 时出错: {e}")
+
 if __name__ == "__main__":
     # setup_project_path()  # 设置项目路径
     navigation = MainMenuNavigation()
@@ -150,11 +196,30 @@ if __name__ == "__main__":
     
     print(f"\n您选择了: {result}")
 
+    # # 尝试动态导入相应模块
+    # try:
+    #     # 将菜单项名称转换为可能的模块名
+    #     module_name = result.split()[0] if ' ' in result else result
+    #     if module_name == "File":
+    #         # 使用相对导入路径
+    #         from .file.file import File
+    #         print(f"成功导入 File 模块")
+    #         # 正确导入并调用
+    #         file = File()
+    #         file.main()
+    #     else:
+    #         imported_module = importlib.import_module(module_name)
+    #         print(f"成功导入 {module_name} 模块")
+    # except ImportError as e:
+    #     print(f"警告: 未找到 {module_name} 模块: {e}")
+    # except Exception as e:
+    #     print(f"执行 {module_name} 时出错: {e}")
+
     try:
         import file.file
         module_name = file.file.File().main()
     except Exception as e:
-        print(f"执行 导入时出错: {e}")
+        print(f"执行 {module_name} 时出错: {e}")
 
     """仅仅尝试导入并调用 File 模块"""
     """尝试使用 if 语句调用所有模块"""

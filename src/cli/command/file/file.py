@@ -101,6 +101,7 @@ if __name__ == "__main__":
     result = file_menu.main()
     print(f"\n您选择了: {result}")
     
+<<<<<<< Updated upstream
     # 根据选择结果动态导入对应模块（文件名与类名相同）
     if result == "New Repository":
         try:
@@ -139,3 +140,62 @@ if __name__ == "__main__":
             print("Options 模块未找到，无法打开设置。")
         except AttributeError as e:
             print(f"Options 类中未找到所需方法: {e}")
+=======
+    # 根据选择结果动态导入对应模块（使用正确的相对导入）
+    # if result == "New Repository":
+    #     try:
+    #         from .file_module.new_repository import run_interactive_flow
+    #         # 直接调用函数
+    #         run_interactive_flow()
+    #     except ImportError as e:
+    #         print(f"new_repository 模块未找到，无法创建新仓库: {e}")
+    #     except Exception as e:
+    #         print(f"执行 new_repository 时出错: {e}")
+            
+    # elif result == "Add local Repository":
+    #     try:
+    #         from .file_module.add_local_repository import AddLocalRepository
+    #         # 实例化并调用主方法（修复构造函数）
+    #         repo = AddLocalRepository("")
+    #         repo.local_path()
+    #     except ImportError as e:
+    #         print(f"add_local_repository 模块未找到，无法添加本地仓库: {e}")
+    #     except Exception as e:
+    #         print(f"执行 add_local_repository 时出错: {e}")
+            
+    # elif result == "Clone repository":
+    #     try:
+    #         from .file_module.clone_repository import CloneRepository
+    #         # 实例化并调用正确的方法名
+    #         cloner = CloneRepository()
+    #         cloner.clone()
+    #     except ImportError as e:
+    #         print(f"clone_repository 模块未找到，无法克隆仓库: {e}")
+    #     except Exception as e:
+    #         print(f"执行 clone_repository 时出错: {e}")
+            
+    # elif result == "Options":
+    #     try:
+    #         from .file_module.options import Options
+    #         # 尝试调用方法，如果文件为空则跳过
+    #         Options().show_settings()
+    #     except ImportError as e:
+    #         print(f"options 模块未找到或为空: {e}")
+    #     except AttributeError as e:
+    #         print(f"Options 类中未找到所需方法，可能文件为空: {e}")
+    #     except Exception as e:
+    #         print(f"执行 options 时出错: {e}")
+            
+    # elif result == "Exit":
+    #     print("退出程序")
+    #     exit(0)
+
+    try:
+        import file_module.new_repository
+        open = file_module.new_repository.run_interactive_flow()
+        print(open)
+    except ImportError as e:
+        print(f"new_repository 模块未找到，无法创建新仓库: {e}")
+
+        """测试代码"""
+>>>>>>> Stashed changes
