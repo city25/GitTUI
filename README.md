@@ -47,3 +47,11 @@ Contributions are welcome! Please refer to [CONTRIBUTING.md](CONTRIBUTING.md) fo
 ## License
 
 This project is licensed under the [MIT License](LICENSE). See LICENSE for details.
+
+
+
+
+
+
+
+@workspace 按照标准按的python大型项目，重构tests文件夹里面的项目结构

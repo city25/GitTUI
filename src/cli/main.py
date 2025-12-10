@@ -4,9 +4,9 @@ import subprocess
 def get_git_version():
     try:
         result = subprocess.run(
-            ["git", "version"], 
-            capture_output=True, 
-            text=True, 
+            ["git", "version"],
+            capture_output=True,
+            text=True,
             check=True
         )
         version_output = result.stdout.strip()
@@ -18,26 +18,32 @@ def get_git_version():
     except Exception:
         return "unknown"
 
-version = get_git_version()
 
-print("+---------------------------------------------+")
-print("|             Git-DIT Terminal UI             |")
-print("| A simple and powerful ASCII-based Git client|")
-print("| for your terminal environment.              |")
-print(f"| Git Version: {version}                         |")
-print("| Press [ENTER] to begin...                   |")
-print("+---------------------------------------------+")
+def main():
+    version = get_git_version()
 
-users_input = input()  # 等待用户按下回车键
+    print("+---------------------------------------------+")
+    print("|             Git-DIT Terminal UI             |")
+    print("| A simple and powerful ASCII-based Git client|")
+    print("| for your terminal environment.              |")
+    print(f"| Git Version: {version}                         |")
+    print("| Press [ENTER] to begin...                   |")
+    print("+---------------------------------------------+")
 
-if users_input == "":
-    print("Starting Git-DIT...")
-    print("Try to return Navigation Interface...")
-    try:
-        # 正确导入并调用
-        from command.main_menu_navigation import MainMenuNavigation
-        menu = MainMenuNavigation()
-        menu.main()
-    except Exception as e:
-        print(f"Error: {e}")
-        print("Exiting...")
+    users_input = input()  # 等待用户按下回车键
+
+    if users_input == "":
+        print("Starting Git-DIT...")
+        print("Try to return Navigation Interface...")
+        try:
+            # 正确导入并调用
+            from command.main_menu_navigation import MainMenuNavigation
+            menu = MainMenuNavigation()
+            menu.main()
+        except Exception as e:
+            print(f"Error: {e}")
+            print("Exiting...")
+
+
+if __name__ == "__main__":
+    main()

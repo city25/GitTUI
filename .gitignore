@@ -180,4 +180,5 @@ cython_debug/
 .cursorignore
 .cursorindexingignore
 
-history/
+.history/
+新建文件夹/

@@ -10,7 +10,7 @@ class File:
     def __init__(self):
         pass
 
-    def main(self):
+    def main(self, simulate_keys: Optional[List[str]] = None):
         choices = [
             "New Repository",
             "Add local Repository",
@@ -88,17 +88,38 @@ class File:
         window_height = len(choices) + 4
         win = Window(content=control, height=window_height)
         
-        app = Application(layout=Layout(win), full_screen=False, 
-                         key_bindings=kb, style=style, mouse_support=False)
-        app.run()
+        # 支持在非交互环境下传入模拟按键（用于测试/脚本）
+        if simulate_keys is not None:
+            from prompt_toolkit.input.defaults import create_pipe_input
+            from prompt_toolkit.output import DummyOutput
+
+            # create_pipe_input() 返回一个 context manager，使用 with 以保证正确关闭
+            with create_pipe_input() as pipe_input:
+                app = Application(layout=Layout(win), full_screen=False,
+                                 key_bindings=kb, style=style, mouse_support=False,
+                                 input=pipe_input, output=DummyOutput())
+
+                for k in simulate_keys:
+                    pipe_input.send_text(k)
+
+                app.run()
+        else:
+            app = Application(layout=Layout(win), full_screen=False,
+                             key_bindings=kb, style=style, mouse_support=False)
+            app.run()
         
         return choices[index['i']]
 
 
 # 测试入口
 if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--simulate', '-s', nargs='*', help='Simulate key inputs, e.g. "\\x1b[B" "\\r"')
+    args = parser.parse_args()
+
     file_menu = File()
-    result = file_menu.main()
+    result = file_menu.main(simulate_keys=args.simulate if args.simulate else None)
     print(f"\n您选择了: {result}") # 测试代码
 
     # 根据用户选择进行分支处理；未实现的分支使用 pass 占位

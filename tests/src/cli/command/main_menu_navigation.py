@@ -100,8 +100,8 @@ class MainMenuNavigation:
             from prompt_toolkit.input.defaults import create_pipe_input
             from prompt_toolkit.output import DummyOutput
 
-            pipe_input = create_pipe_input()
-            try:
+            # create_pipe_input() 返回一个 context manager，使用 with 以保证正确关闭
+            with create_pipe_input() as pipe_input:
                 app = Application(
                     layout=layout,
                     full_screen=False,
@@ -116,8 +116,6 @@ class MainMenuNavigation:
                     pipe_input.send_text(k)
 
                 app.run()
-            finally:
-                pipe_input.close()
         else:
             app = Application(layout=layout, full_screen=False, key_bindings=self.kb, style=style)
             app.run()
@@ -169,20 +167,23 @@ def setup_project_path():
 
 # # 独立运行测试入口
 if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--simulate', '-s', nargs='*', help='Simulate key inputs, e.g. "\\x1b[B" "\\r"')
+    args = parser.parse_args()
+
     # setup_project_path()  # 设置项目路径（按需启用）
     navigation = MainMenuNavigation()
-    result = navigation.main()
+    result = navigation.main(simulate_keys=args.simulate if args.simulate else None)
 
     print(f"\n您选择了: {result}")
 
     try:
-        # 如果在主菜单选择了 "File"，则进入 file 子菜单并根据子菜单结果继续处理
         if result == "File":
             try:
-                # 首先尝试从包路径导入
                 from file.file import File
             except Exception:
-                # 作为回退，尝试相对导入（在不同运行方式下兼容）
                 try:
                     from .file.file import File
                 except Exception:
@@ -194,7 +195,6 @@ if __name__ == "__main__":
                 sub_result = File().main()
                 print(f"\nFile 菜单返回: {sub_result}")
 
-                # 根据 file 子菜单的选择继续处理（示例：New Repository）
                 if sub_result == "New Repository":
                     try:
                         try:
@@ -205,9 +205,7 @@ if __name__ == "__main__":
                         print(output)
                     except Exception as e:
                         print(f"调用 new_repository 失败: {e}")
-                # 其余分支可按需扩展
         else:
-            # 其他主菜单项尚未实现具体跳转
             print("未实现的主菜单分支（跳转待实现）")
     except Exception as e:
         print(f"执行 导入时出错: {e}")

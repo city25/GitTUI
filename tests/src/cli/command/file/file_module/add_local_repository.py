@@ -1,6 +1,6 @@
 class AddLocalRepository:
     def __init__(self, local_path):
-        self.local_repository = local_path  # 修复：改为小写+下划线
+        self.LocalRepository = local_path
     
     def local_path(self):
         local_path = input("Local path: ") # 用户输入的是绝对路径
